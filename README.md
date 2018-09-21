@@ -1,5 +1,7 @@
 # xrandr-extend
-Extend a HIDPI screen to a normal DPI external display
+Extend a HIDPI screen to a normal DPI external display. This command line tool
+implements various solutions described in the [HIDPI Arch Linux wiki
+page](https://wiki.archlinux.org/index.php/HiDPI#Multiple_displays).
 
 
 ## Installation
