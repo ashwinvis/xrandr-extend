@@ -30,9 +30,9 @@ def call(cmd):
 
 provider = subprocess.check_output(split("xrandr --listproviders"))
 # Configuration
-if provider.endswith(b"modesetting\n"):
+if provider.lower().endswith(b"modesetting\n"):
     display_names = {"primary": "eDP-1", "hdmi": "HDMI-1", "vga": "DP-1"}
-elif provider.endswith(b"intel\n"):
+elif provider.lower().endswith(b"intel\n"):
     display_names = {"primary": "eDP1", "hdmi": "HDMI1", "vga": "DP1"}
 else:
     raise OSError(b"Unknown X server provider" + provider)

@@ -1,0 +1,11 @@
+build/*
+dist/*
+
+*.pyc
+*.swp
+*.swo
+.spyder*
+*.egg-info/*
+.tox/*
+
+Pipfile.lock
