@@ -119,7 +119,7 @@ if __name__ == "__main__":
     call("xrandr --auto")
     call("xrandr --listmonitors")
     if args.mirror:
-        command = "xrandr --output {} --scale {}x{}".format(monitor2, E, F)
+        commands = ("xrandr --output {} --scale {}x{}".format(monitor2, E, F),)
     elif args.pan:
         commands = (
             (
