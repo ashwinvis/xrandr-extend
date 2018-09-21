@@ -12,7 +12,7 @@ or alternatively
 ```
 git clone https://github.com/ashwinvis/xrandr-extend.git
 cd xrandr-extend
-# clone, edit the `xrandr-extend` script
+# edit the `xrandr-extend` script
 pip install -e .
 ```
 
