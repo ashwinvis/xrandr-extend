@@ -16,7 +16,6 @@ $ xrandr-extend -e 1024 768 -n vga  # Pan with custom external resolution
 import subprocess
 from shlex import split
 import argparse
-import sys
 
 
 def call(cmd):
@@ -100,65 +99,75 @@ parser.add_argument(
     help="Preview command without executing it",
     action="store_true",
 )
-args = parser.parse_args()
-
-monitor1 = display_names["primary"]
-monitor2 = display_names[args.profile]
-
-# HIDPI monitor resolution
-A = args.pri_res[0]
-B = args.pri_res[1]
-
-# External non-HIDPI monitor resolution
-if args.ext_res is None:
-    C = display_res_defaults[args.profile][0]
-    D = display_res_defaults[args.profile][1]
-else:
-    C = args.ext_res[0]
-    D = args.ext_res[1]
-
-# Scaling factor
-E = round(A / C, 2)
-F = round(B / D, 2)
-E = F = max(E, F)
 
 if __name__ == "__main__":
-    call("xrandr --auto")
-    call("xrandr --listmonitors")
+    args = parser.parse_args()
+
+    monitor1 = display_names["primary"]
+    monitor2 = display_names[args.profile]
+
+    # HIDPI monitor resolution
+    A = args.pri_res[0]
+    B = args.pri_res[1]
+
+    # External non-HIDPI monitor resolution
+    if args.ext_res is None:
+        C = display_res_defaults[args.profile][0]
+        D = display_res_defaults[args.profile][1]
+    else:
+        C = args.ext_res[0]
+        D = args.ext_res[1]
+
+    # Scaling factor
+    E = round(A / C, 2)
+    F = round(B / D, 2)
+    E = F = max(E, F)
+
+    # Prepare commands
+    commands = ["xrandr --auto"]
+    commands.extend(["xrandr --listmonitors"])
     if args.mirror:
-        commands = ("xrandr --output {} --scale {}x{}".format(monitor2, E, F),)
+        commands.extend(
+            ["xrandr --output {} --scale {}x{}".format(monitor2, E, F)]
+        )
     elif args.pan:
-        commands = (
-            (
-                "xrandr --output {} --auto --output {} --auto --panning "
-                "{}x{}+{}+0 --scale {}x{} --right-of {}"
-            ).format(
-                monitor1, monitor2, int(C * E), int(D * F), A, E, F, monitor1
-            ),
+        commands.extend(
+            [
+                (
+                    "xrandr --output {} --auto --output {} --auto --panning "
+                    "{}x{}+{}+0 --scale {}x{} --right-of {}"
+                ).format(
+                    monitor1, monitor2, int(C * E), int(D * F), A, E, F, monitor1
+                )
+            ]
         )
     elif args.pos:
-        commands = (
-            (
-                "xrandr --output {} --auto --pos 0x{}  --output {} "
-                "--scale {}x{} --auto --pos 0x0 --fb {}x{}"
-            ).format(
-                monitor1,
-                int(D * F),
-                monitor2,
-                E,
-                F,
-                int(max(A, C * E)),
-                int(B + D * F),
-            ),
+        commands.extend(
+            [
+                (
+                    "xrandr --output {} --auto --pos 0x{}  --output {} "
+                    "--scale {}x{} --auto --pos 0x0 --fb {}x{}"
+                ).format(
+                    monitor1,
+                    int(D * F),
+                    monitor2,
+                    E,
+                    F,
+                    int(max(A, C * E)),
+                    int(B + D * F),
+                )
+            ]
         )
     elif args.only:
-        commands = ("xrandr --output {} --off".format(monitor1),)
+        commands.extend(["xrandr --output {} --off".format(monitor1)])
     else:
-        commands = (
-            (
-                "xrandr --output {} --auto --output {} --auto --scale {}x{} "
-                "--right-of {}"
-            ).format(monitor1, monitor2, E, F, monitor1),
+        commands.extend(
+            [
+                (
+                    "xrandr --output {} --auto --output {} --auto --scale {}x{} "
+                    "--right-of {}"
+                ).format(monitor1, monitor2, E, F, monitor1)
+            ]
         )
 
     list(map(print, commands))
