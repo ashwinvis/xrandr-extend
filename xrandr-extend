@@ -1,9 +1,13 @@
 #!/usr/bin/env python3
 """
 Examples
--------
-$ xrandr-extend --pan --dry-run vga
-$ xrandr-extend --pan vga
+--------
+# Default option requires only the scaling factors and display name
+$ xrandr-extend --dry-run vga
+$ xrandr-extend vga
+$ xrandr-extend hdmi
+
+# Other options to extend the display
 $ xrandr-extend --pan hdmi
 $ xrandr-extend --only hdmi
 $ xrandr-extend -e 1024 768 -n vga  # Pan with custom external resolution
@@ -91,7 +95,10 @@ parser.add_argument(
     action="store_true",
 )
 parser.add_argument(
-    "-d", "--dry-run", help="Preview command without executing it", action="store_true"
+    "-d",
+    "--dry-run",
+    help="Preview command without executing it",
+    action="store_true",
 )
 args = parser.parse_args()
 
@@ -125,7 +132,9 @@ if __name__ == "__main__":
             (
                 "xrandr --output {} --auto --output {} --auto --panning "
                 "{}x{}+{}+0 --scale {}x{} --right-of {}"
-            ).format(monitor1, monitor2, int(C * E), int(D * F), A, E, F, monitor1),
+            ).format(
+                monitor1, monitor2, int(C * E), int(D * F), A, E, F, monitor1
+            ),
         )
     elif args.pos:
         commands = (
@@ -133,14 +142,24 @@ if __name__ == "__main__":
                 "xrandr --output {} --auto --pos 0x{}  --output {} "
                 "--scale {}x{} --auto --pos 0x0 --fb {}x{}"
             ).format(
-                monitor1, int(D * F), monitor2, E, F, int(max(A, C * E)), int(B + D * F)
+                monitor1,
+                int(D * F),
+                monitor2,
+                E,
+                F,
+                int(max(A, C * E)),
+                int(B + D * F),
             ),
         )
     elif args.only:
         commands = ("xrandr --output {} --off".format(monitor1),)
     else:
-        print("Specify one of the following options: -m / -n / -o / -s")
-        sys.exit(1)
+        commands = (
+            (
+                "xrandr --output {} --auto --output {} --auto --scale {}x{} "
+                "--right-of {}"
+            ).format(monitor1, monitor2, E, F, monitor1),
+        )
 
     list(map(print, commands))
     if not args.dry_run:

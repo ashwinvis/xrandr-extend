@@ -12,7 +12,7 @@ with open(os.path.join(here, "README.md")) as f:
 lines = long_description.splitlines(True)
 long_description = "".join(lines[1:])
 
-__version__ = "0.0.1"
+__version__ = "0.0.2"
 
 # Get the development status from the version string
 parsed_version = parse_version(__version__)
