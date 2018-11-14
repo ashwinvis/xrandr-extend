@@ -6,12 +6,12 @@ page](https://wiki.archlinux.org/index.php/HiDPI#Multiple_displays).
 
 ## Installation
 
-```
+```sh
 pip install -e git+https://github.com/ashwinvis/xrandr-extend.git#egg=xrandr_extend
 ```
 or alternatively
 
-```
+```sh
 git clone https://github.com/ashwinvis/xrandr-extend.git
 cd xrandr-extend
 # edit the `xrandr-extend` script
@@ -20,7 +20,7 @@ pip install -e .
 
 ## Quick reference
 
-```
+```console
 usage: xrandr-extend [-h] [-p PRI_RES PRI_RES] [-e EXT_RES EXT_RES] [-m] [-n]
                      [-o] [-s] [-d]
                      profile
