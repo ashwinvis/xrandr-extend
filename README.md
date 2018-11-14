@@ -6,17 +6,51 @@ page](https://wiki.archlinux.org/index.php/HiDPI#Multiple_displays).
 
 ## Installation
 
-```sh
-pip install -e git+https://github.com/ashwinvis/xrandr-extend.git#egg=xrandr_extend
+```
+pip install -e git+https://github.com/ashwinvis/xrandr-extend.git#egg=xrandr_extend --user
 ```
 or alternatively
 
 ```sh
 git clone https://github.com/ashwinvis/xrandr-extend.git
 cd xrandr-extend
-# edit the `xrandr-extend` script
-pip install -e .
+pip install -e . --user
 ```
+
+## Configuration
+```sh
+python -m xrandr_extend.config
+```
+This creates a file `~/.config/xrandr-extend.cfg` which looks like this:
+
+```ini
+[provider:modesetting]
+primary = eDP-1
+hdmi = HDMI-1
+vga = DP-1
+
+[provider:intel]
+primary = eDP1
+hdmi = HDMI1
+vga = DP1
+
+[resolutions]
+primary = (3200, 1800)
+hdmi = (1920, 1080)
+vga = (1920, 1200)
+
+```
+
+The first few sections have the name in the format `[provider:display_driver]`.
+Run `xrandr --listproviders` to find what your system has. The values in this
+section should be given as `alias = monitor_name`, as in the output of
+`xrandr --listmonitors` command. You may even remove existing sections and 
+add more sections for your *display driver*.
+
+Each line in the `[resolutions]` section signifies a *resolution profile* in
+the format `alias = [width_in_pixels, height_in_pixels]`.  The *profile*
+`primary` should contain the resolution of your built-in display.  You may edit
+or remove the remaining values `hdmi` and `vga`.
 
 ## Quick reference
 

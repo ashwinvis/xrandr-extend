@@ -1,5 +1,5 @@
 import os
-from setuptools import setup
+from setuptools import setup, find_packages
 
 here = os.path.abspath(os.path.dirname(__file__))
 
@@ -11,10 +11,15 @@ with open(os.path.join(here, "README.md")) as f:
 lines = long_description.splitlines(True)
 long_description = "".join(lines[1:])
 
-__version__ = "0.0.2"
+__version__ = "0.0.3"
 
-install_requires = []
-scripts = ["xrandr-extend"]
+console_scripts = [
+    "xrandr-extend = xrandr_extend.main:run"
+]
+
+package_data={
+    "xrandr_extend": ["default.cfg"]
+}
 
 setup(
     name="xrandr-extend",
@@ -43,6 +48,7 @@ setup(
         "Programming Language :: Python :: 3.7",
     ],
     python_requires=">=3,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*",
-    install_requires=install_requires,
-    scripts=scripts,
+    packages=find_packages(),
+    package_data=package_data,
+    entry_points={"console_scripts": console_scripts},
 )

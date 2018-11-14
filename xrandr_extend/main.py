@@ -13,39 +13,12 @@ $ xrandr-extend --only hdmi
 $ xrandr-extend -e 1024 768 -n vga  # Pan with custom external resolution
 
 """
-import subprocess
-from shlex import split
 import argparse
+from ast import literal_eval
+from . import cmd, config
 
 
-def call(cmd):
-    """Call a shell command
-
-    Parameters
-    ----------
-
-    cmd : str
-
-    """
-    cmd = split(cmd)
-    subprocess.call(cmd)
-
-
-provider = subprocess.check_output(split("xrandr --listproviders"))
-# Configuration
-if provider.lower().endswith(b"modesetting\n"):
-    display_names = {"primary": "eDP-1", "hdmi": "HDMI-1", "vga": "DP-1"}
-elif provider.lower().endswith(b"intel\n"):
-    display_names = {"primary": "eDP1", "hdmi": "HDMI1", "vga": "DP1"}
-else:
-    raise OSError(b"Unknown X server provider" + provider)
-
-# Set known display resolutions here for ease:
-display_res_defaults = {
-    "primary": [3200, 1800],
-    "hdmi": [1920, 1080],
-    "vga": [1920, 1200],
-}
+display_res_defaults = config.read()["resolutions"]
 
 
 # Parse command-line arguments
@@ -68,7 +41,7 @@ parser.add_argument(
     ),
     nargs=2,
     type=int,
-    default=display_res_defaults["primary"],
+    default=literal_eval(display_res_defaults["primary"]),
 )
 parser.add_argument(
     "-e",
@@ -100,8 +73,11 @@ parser.add_argument(
     action="store_true",
 )
 
-if __name__ == "__main__":
+
+def run():
     args = parser.parse_args()
+
+    display_names = cmd.display_names_from_providers()
 
     monitor1 = display_names["primary"]
     monitor2 = display_names[args.profile]
@@ -112,11 +88,11 @@ if __name__ == "__main__":
 
     # External non-HIDPI monitor resolution
     if args.ext_res is None:
-        C = display_res_defaults[args.profile][0]
-        D = display_res_defaults[args.profile][1]
-    else:
-        C = args.ext_res[0]
-        D = args.ext_res[1]
+        ext_res = display_res_defaults[args.profile]
+        args.ext_res = literal_eval(ext_res)
+
+    C = args.ext_res[0]
+    D = args.ext_res[1]
 
     # Scaling factor
     E = round(A / C, 2)
@@ -172,4 +148,8 @@ if __name__ == "__main__":
 
     list(map(print, commands))
     if not args.dry_run:
-        list(map(call, commands))
+        list(map(cmd.call, commands))
+
+
+if __name__ == "__main__":
+    run()
