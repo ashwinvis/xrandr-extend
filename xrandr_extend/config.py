@@ -1,9 +1,10 @@
 from pathlib import Path
 from configparser import ConfigParser
+import pkg_resources
 
 
 # Default configuration file
-DEFAULT_CFG_FILE = Path(__file__).parent / "default.cfg"
+DEFAULT_CFG_FILE = pkg_resources.resource_filename(__name__, "default.cfg")
 
 # User-configuration file
 CFG_FILE = Path.home() / ".config" / "xrandr-extend.cfg"
@@ -11,7 +12,7 @@ CFG_FILE = Path.home() / ".config" / "xrandr-extend.cfg"
 
 def default_cfg():
     config = ConfigParser()
-    config.read(str(DEFAULT_CFG_FILE))
+    config.read(DEFAULT_CFG_FILE)
 
     return config
 
@@ -19,7 +20,7 @@ def default_cfg():
 def read():
     if CFG_FILE.exists():
         config = default_cfg()
-        config.read(str(CFG_FILE))
+        config.read(CFG_FILE)
         return config
     else:
         return default_cfg()

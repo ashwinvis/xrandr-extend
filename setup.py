@@ -48,6 +48,7 @@ setup(
         "Programming Language :: Python :: 3.7",
     ],
     python_requires=">=3,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*",
+    install_requires=["setuptools"],
     packages=find_packages(),
     package_data=package_data,
     entry_points={"console_scripts": console_scripts},
