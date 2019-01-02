@@ -33,7 +33,7 @@ setup(
     url="https://github.org/ashwinvis/xrandr-extend",
     license="GPL",
     classifiers=[
-        "Development Status :: 5 - Production/Stable"
+        "Development Status :: 5 - Production/Stable",
         "Intended Audience :: End Users/Desktop",
         "Topic :: Desktop Environment",
         "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",

@@ -6,21 +6,19 @@ page](https://wiki.archlinux.org/index.php/HiDPI#Multiple_displays).
 
 ## Installation
 
-```
-pip install -e git+https://github.com/ashwinvis/xrandr-extend.git#egg=xrandr_extend --user
+```sh
+pip install xrandr-extend --user
 ```
 or alternatively
 
 ```sh
-git clone https://github.com/ashwinvis/xrandr-extend.git
-cd xrandr-extend
-pip install -e . --user
+pip install -e "git+https://github.com/ashwinvis/xrandr-extend.git#egg=xrandr_extend" --user
 ```
 
 ## Configuration
 ```sh
 python -m xrandr_extend.config
-```
+
 This creates a file `~/.config/xrandr-extend.cfg` which looks like this:
 
 ```ini
