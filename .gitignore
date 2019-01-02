@@ -9,3 +9,5 @@ dist/*
 .tox/*
 
 Pipfile.lock
+
+**/.mypy_cache

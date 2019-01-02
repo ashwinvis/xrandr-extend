@@ -13,9 +13,19 @@ $ xrandr-extend --only hdmi
 $ xrandr-extend -e 1024 768 -n vga  # Pan with custom external resolution
 
 """
+from datetime import datetime
 import argparse
 from ast import literal_eval
 from . import cmd, config
+
+
+COPYING = """
+xrandr-extend Copyright (C) 2018-{} Ashwin Vishnu Mohanan
+This program comes with ABSOLUTELY NO WARRANTY; This is free software, and you
+are welcome to redistribute it under certain conditions. You should have
+received a copy of the GNU General Public License (version 3 or later) along
+with this program. If not, see <http://www.gnu.org/licenses/>.
+""".format(datetime.now().year)
 
 
 display_res_defaults = config.read()["resolutions"]
@@ -24,7 +34,7 @@ display_res_defaults = config.read()["resolutions"]
 # Parse command-line arguments
 parser = argparse.ArgumentParser(
     description="Extend a HIDPI screen to a normal DPI external display",
-    epilog=__doc__,
+    epilog=__doc__ + COPYING,
     formatter_class=argparse.RawDescriptionHelpFormatter,
 )
 parser.add_argument(

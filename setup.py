@@ -32,6 +32,7 @@ setup(
     author_email="ashwinvis+gh@pm.me",
     url="https://github.org/ashwinvis/xrandr-extend",
     license="GPL",
+    license_file = "LICENSE",
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Intended Audience :: End Users/Desktop",
