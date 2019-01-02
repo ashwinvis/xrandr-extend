@@ -1,4 +1,8 @@
 # xrandr-extend
+
+![release](https://img.shields.io/pypi/v/xrandr-extend.svg)
+![python versions](https://img.shields.io/pypi/pyversions/xrandr-extend.svg)
+
 Extend a HIDPI screen to a normal DPI external display. This command line tool
 implements various solutions described in the [HIDPI Arch Linux wiki
 page](https://wiki.archlinux.org/index.php/HiDPI#Multiple_displays).
@@ -6,15 +10,13 @@ page](https://wiki.archlinux.org/index.php/HiDPI#Multiple_displays).
 
 ## Installation
 
-```
-pip install -e git+https://github.com/ashwinvis/xrandr-extend.git#egg=xrandr_extend --user
+```sh
+pip install xrandr-extend --user
 ```
 or alternatively
 
 ```sh
-git clone https://github.com/ashwinvis/xrandr-extend.git
-cd xrandr-extend
-pip install -e . --user
+pip install -e "git+https://github.com/ashwinvis/xrandr-extend.git#egg=xrandr_extend" --user
 ```
 
 ## Configuration
