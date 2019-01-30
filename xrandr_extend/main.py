@@ -110,45 +110,33 @@ def run():
 
     # Prepare commands
     commands = ["xrandr --auto"]
-    commands.extend(["xrandr --listmonitors"])
+    commands.append("xrandr --listmonitors")
     if args.mirror:
-        commands.extend(["xrandr --output {} --scale {}x{}".format(monitor2, E, F)])
+        commands.append("xrandr --output {} --scale {}x{}".format(monitor2, E, F))
     elif args.pan:
-        commands.extend(
-            [
-                (
-                    "xrandr --output {} --auto --output {} --auto --panning "
-                    "{}x{}+{}+0 --scale {}x{} --right-of {}"
-                ).format(monitor1, monitor2, int(C * E), int(D * F), A, E, F, monitor1)
-            ]
+        commands.append(
+            (
+                "xrandr --output {} --auto --output {} --auto --panning "
+                "{}x{}+{}+0 --scale {}x{} --right-of {}"
+            ).format(monitor1, monitor2, int(C * E), int(D * F), A, E, F, monitor1)
         )
     elif args.pos:
-        commands.extend(
-            [
-                (
-                    "xrandr --output {} --auto --pos 0x{}  --output {} "
-                    "--scale {}x{} --auto --pos 0x0 --fb {}x{}"
-                ).format(
-                    monitor1,
-                    int(D * F),
-                    monitor2,
-                    E,
-                    F,
-                    int(max(A, C * E)),
-                    int(B + D * F),
-                )
-            ]
+        commands.append(
+            (
+                "xrandr --output {} --auto --pos 0x{}  --output {} "
+                "--scale {}x{} --auto --pos 0x0 --fb {}x{}"
+            ).format(
+                monitor1, int(D * F), monitor2, E, F, int(max(A, C * E)), int(B + D * F)
+            )
         )
     elif args.only:
-        commands.extend(["xrandr --output {} --off".format(monitor1)])
+        commands.append("xrandr --output {} --off".format(monitor1))
     else:
-        commands.extend(
-            [
-                (
-                    "xrandr --output {} --auto --output {} --auto --scale {}x{} "
-                    "--right-of {}"
-                ).format(monitor1, monitor2, E, F, monitor1)
-            ]
+        commands.append(
+            (
+                "xrandr --output {} --auto --output {} --auto --scale {}x{} "
+                "--right-of {}"
+            ).format(monitor1, monitor2, E, F, monitor1)
         )
 
     if provider == "modesetting" and not (args.mirror or args.only):
