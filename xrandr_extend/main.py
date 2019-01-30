@@ -25,7 +25,9 @@ This program comes with ABSOLUTELY NO WARRANTY; This is free software, and you
 are welcome to redistribute it under certain conditions. You should have
 received a copy of the GNU General Public License (version 3 or later) along
 with this program. If not, see <http://www.gnu.org/licenses/>.
-""".format(datetime.now().year)
+""".format(
+    datetime.now().year
+)
 
 
 display_res_defaults = config.read()["resolutions"]
@@ -77,17 +79,14 @@ parser.add_argument(
     action="store_true",
 )
 parser.add_argument(
-    "-d",
-    "--dry-run",
-    help="Preview command without executing it",
-    action="store_true",
+    "-d", "--dry-run", help="Preview command without executing it", action="store_true"
 )
 
 
 def run():
     args = parser.parse_args()
-
-    display_names = cmd.display_names_from_providers()
+    provider = cmd.detect_provider()
+    display_names = cmd.display_names_from_providers(provider)
 
     monitor1 = display_names["primary"]
     monitor2 = display_names[args.profile]
@@ -113,18 +112,14 @@ def run():
     commands = ["xrandr --auto"]
     commands.extend(["xrandr --listmonitors"])
     if args.mirror:
-        commands.extend(
-            ["xrandr --output {} --scale {}x{}".format(monitor2, E, F)]
-        )
+        commands.extend(["xrandr --output {} --scale {}x{}".format(monitor2, E, F)])
     elif args.pan:
         commands.extend(
             [
                 (
                     "xrandr --output {} --auto --output {} --auto --panning "
                     "{}x{}+{}+0 --scale {}x{} --right-of {}"
-                ).format(
-                    monitor1, monitor2, int(C * E), int(D * F), A, E, F, monitor1
-                )
+                ).format(monitor1, monitor2, int(C * E), int(D * F), A, E, F, monitor1)
             ]
         )
     elif args.pos:
@@ -154,6 +149,12 @@ def run():
                     "--right-of {}"
                 ).format(monitor1, monitor2, E, F, monitor1)
             ]
+        )
+
+    if provider == "modesetting" and not (args.mirror or args.only):
+        flicker_correction = 0.9999
+        commands.append(
+            "xrandr --output {0} --scale {1}x{1}".format(monitor1, flicker_correction)
         )
 
     list(map(print, commands))

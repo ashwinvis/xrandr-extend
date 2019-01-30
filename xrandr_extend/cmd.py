@@ -19,16 +19,17 @@ def call(cmd):
     subprocess.call(cmd)
 
 
-def display_names_from_providers():
-    output = subprocess.check_output(split("xrandr --listproviders")).decode(
-        "utf8"
-    )
+def detect_provider():
+    output = subprocess.check_output(split("xrandr --listproviders")).decode("utf8")
     # Configuration
-    config = read()
     provider = output.lower().rstrip("\n").split(":")[-1]
+    return provider
 
+
+def display_names_from_providers(provider):
     # Try to read a section such as:
     # [provider:modesetting]
+    config = read()
     section = "provider:{}".format(provider)
     if config.has_section(section):
         display_names = config[section]
@@ -38,9 +39,7 @@ def display_names_from_providers():
                 "Unknown X server provider. Output of `xrandr --listproviders` was:\n"
                 + output
                 + "Hint: perhaps you are using Wayland and not an X server? "
-                + "If not simply add a section [{}] in {}".format(
-                    section, CFG_FILE
-                )
+                + "If not simply add a section [{}] in {}".format(section, CFG_FILE)
             )
         )
         sys.exit(1)
