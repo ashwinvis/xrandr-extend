@@ -86,7 +86,7 @@ parser.add_argument(
 def run():
     args = parser.parse_args()
     provider = cmd.detect_provider()
-    display_names = cmd.display_names_from_providers(provider)
+    display_names = config.display_names_from_providers(provider)
 
     monitor1 = display_names["primary"]
     monitor2 = display_names[args.profile]

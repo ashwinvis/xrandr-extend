@@ -24,24 +24,3 @@ def detect_provider():
     # Configuration
     provider = output.lower().rstrip("\n").split(":")[-1]
     return provider
-
-
-def display_names_from_providers(provider):
-    # Try to read a section such as:
-    # [provider:modesetting]
-    config = read()
-    section = "provider:{}".format(provider)
-    if config.has_section(section):
-        display_names = config[section]
-    else:
-        print(
-            (
-                "Unknown X server provider. Output of `xrandr --listproviders` was:\n"
-                + output
-                + "Hint: perhaps you are using Wayland and not an X server? "
-                + "If not simply add a section [{}] in {}".format(section, CFG_FILE)
-            )
-        )
-        sys.exit(1)
-
-    return display_names
