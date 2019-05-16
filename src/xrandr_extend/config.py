@@ -47,7 +47,9 @@ def display_names_from_providers(provider):
                 + provider.strip("\n")
                 + "\n"
                 + "Hint: perhaps you are using Wayland and not an X server? "
-                + "If not simply add a section [{}] in {}".format(section, CFG_FILE)
+                + "If not simply add a section [{}] in {}".format(
+                    section, CFG_FILE
+                )
             )
         )
         sys.exit(1)

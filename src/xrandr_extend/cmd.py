@@ -20,7 +20,9 @@ def call(cmd):
 
 
 def detect_provider():
-    output = subprocess.check_output(split("xrandr --listproviders")).decode("utf8")
+    output = subprocess.check_output(split("xrandr --listproviders")).decode(
+        "utf8"
+    )
     # Configuration
     provider = output.lower().rstrip("\n").split(":")[-1]
     return provider
