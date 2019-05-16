@@ -35,6 +35,7 @@ display_res_defaults = config.read()["resolutions"]
 
 # Parse command-line arguments
 parser = argparse.ArgumentParser(
+    prog="xrandr-extend",
     description="Extend a HIDPI screen to a normal DPI external display",
     epilog=__doc__ + COPYING,
     formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -83,8 +84,8 @@ parser.add_argument(
 )
 
 
-def run():
-    args = parser.parse_args()
+def run(args=None):
+    args = parser.parse_args(args)
     provider = cmd.detect_provider()
     display_names = config.display_names_from_providers(provider)
 

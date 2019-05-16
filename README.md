@@ -1,12 +1,19 @@
-# xrandr-extend
+xrandr-extend
+=============
 
-![release](https://img.shields.io/pypi/v/xrandr-extend.svg)
+
+[![image](https://img.shields.io/pypi/v/xrandr_extend.svg)](https://pypi.python.org/pypi/xrandr_extend)
 ![python versions](https://img.shields.io/pypi/pyversions/xrandr-extend.svg)
+[![image](https://img.shields.io/travis/ashwinvis/xrandr_extend.svg)](https://travis-ci.org/ashwinvis/xrandr_extend)
+[![Documentation Status](https://readthedocs.org/projects/xrandr-extend/badge/?version=latest)](https://xrandr-extend.readthedocs.io/en/latest/?badge=latest)
 
 Extend a HIDPI screen to a normal DPI external display. This command line tool
 implements various solutions described in the [HIDPI Arch Linux wiki
 page](https://wiki.archlinux.org/index.php/HiDPI#Multiple_displays).
 
+* Free software: GNU General Public License v3
+
+* Documentation: https://xrandr-extend.readthedocs.io.
 
 ## Installation
 
@@ -93,3 +100,10 @@ $ xrandr-extend --pan hdmi
 $ xrandr-extend --only hdmi
 $ xrandr-extend -e 1024 768 -n vga  # Pan with custom external resolution
 ```
+
+# Credits
+
+This package was created with
+[Cookiecutter](https://github.com/audreyr/cookiecutter) and the
+[ashwinvis/cookiecutter-pypackage](https://github.com/ashwinvis/cookiecutter-pypackage)
+project template.
