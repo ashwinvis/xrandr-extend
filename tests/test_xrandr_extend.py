@@ -41,4 +41,4 @@ def test_write_config():
     else:
         config.write_defaults()
     config.read()
-    os.remove(config.CFG_FILE)
+    config.CFG_FILE.unlink()  # remove

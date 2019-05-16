@@ -22,7 +22,7 @@ def default_cfg():
 def read():
     if CFG_FILE.exists():
         config = default_cfg()
-        config.read(CFG_FILE)
+        config.read(str(CFG_FILE))  # py35
         return config
     else:
         return default_cfg()
@@ -30,7 +30,8 @@ def read():
 
 def write_defaults():
     config = default_cfg()
-    with open(CFG_FILE, "x") as f:
+    # py35 doesn't support pathlike?
+    with open(str(CFG_FILE), "x") as f:
         config.write(f)
 
 
