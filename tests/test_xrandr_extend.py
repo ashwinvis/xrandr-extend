@@ -10,7 +10,10 @@ from pathlib import Path
 from tempfile import gettempdir
 import os
 
-from xrandr_extend import main, config
+from xrandr_extend import main, config, XRANDR
+
+if os.getenv("CI") == "true":
+    XRANDR = "xvfb-run xrandr"
 
 
 @pytest.mark.parametrize("args", [

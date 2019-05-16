@@ -16,7 +16,7 @@ $ xrandr-extend -e 1024 768 -n vga  # Pan with custom external resolution
 from datetime import datetime
 import argparse
 from ast import literal_eval
-from . import cmd, config
+from . import cmd, config, XRANDR
 
 
 COPYING = """
@@ -71,10 +71,7 @@ parser.add_argument(
     "-n", "--pan", help="pan the position of ext. display", action="store_true"
 )
 parser.add_argument(
-    "-o",
-    "--only",
-    help="extend and use only ext. display",
-    action="store_true",
+    "-o", "--only", help="extend and use only ext. display", action="store_true"
 )
 parser.add_argument(
     "-s",
@@ -116,17 +113,18 @@ def run(args=None):
     E = F = max(E, F)
 
     # Prepare commands
-    commands = ["xrandr --auto"]
-    commands.append("xrandr --listmonitors")
+    commands = [XRANDR + " --auto"]
+    commands.append(XRANDR + " --listmonitors")
     if args.mirror:
         commands.append(
-            "xrandr --output {} --scale {}x{}".format(monitor2, E, F)
+            XRANDR + " --output {} --scale {}x{}".format(monitor2, E, F)
         )
     elif args.pan:
         commands.append(
             (
-                "xrandr --output {} --auto --output {} --auto --panning "
-                "{}x{}+{}+0 --scale {}x{} --right-of {}"
+                XRANDR
+                + " --output {} --auto --output {} --auto --panning "
+                + "{}x{}+{}+0 --scale {}x{} --right-of {}"
             ).format(
                 monitor1, monitor2, int(C * E), int(D * F), A, E, F, monitor1
             )
@@ -134,8 +132,9 @@ def run(args=None):
     elif args.pos:
         commands.append(
             (
-                "xrandr --output {} --auto --pos 0x{}  --output {} "
-                "--scale {}x{} --auto --pos 0x0 --fb {}x{}"
+                XRANDR
+                + " --output {} --auto --pos 0x{}  --output {} "
+                + "--scale {}x{} --auto --pos 0x0 --fb {}x{}"
             ).format(
                 monitor1,
                 int(D * F),
@@ -147,21 +146,21 @@ def run(args=None):
             )
         )
     elif args.only:
-        commands.append("xrandr --output {} --off".format(monitor1))
+        commands.append(XRANDR + " --output {} --off".format(monitor1))
     else:
         commands.append(
             (
-                "xrandr --output {} --auto --output {} --auto --scale {}x{} "
-                "--right-of {}"
+                XRANDR
+                + " --output {} --auto --output {} --auto --scale {}x{} "
+                + "--right-of {}"
             ).format(monitor1, monitor2, E, F, monitor1)
         )
 
     if provider == "modesetting" and not (args.mirror or args.only):
         flicker_correction = 0.9999
         commands.append(
-            "xrandr --output {0} --scale {1}x{1}".format(
-                monitor1, flicker_correction
-            )
+            XRANDR
+            + " --output {0} --scale {1}x{1}".format(monitor1, flicker_correction)
         )
 
     list(map(print, commands))

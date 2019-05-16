@@ -4,6 +4,7 @@ import subprocess
 import sys
 from shlex import split
 from .config import read, CFG_FILE
+from . import XRANDR
 
 
 def call(cmd):
@@ -20,7 +21,7 @@ def call(cmd):
 
 
 def detect_provider():
-    output = subprocess.check_output(split("xrandr --listproviders")).decode(
+    output = subprocess.check_output(split(XRANDR + " --listproviders")).decode(
         "utf8"
     )
     # Configuration
