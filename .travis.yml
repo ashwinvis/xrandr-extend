@@ -1,15 +1,19 @@
 # Config file for automatic testing at travis-ci.org
-
+dist:xenial
+services:
+  - xvfb
 language: python
+
 python:
+  - 3.4
+  - 3.5
   - 3.6
-  - 3.7
 
 # Command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
 install: pip install -U tox-travis
 
 # Command to run tests, e.g. python setup.py test
-script: tox
+script: xvfb-run tox
 
 before_deploy: make clean
 

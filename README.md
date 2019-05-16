@@ -4,7 +4,7 @@ xrandr-extend
 
 [![image](https://img.shields.io/pypi/v/xrandr_extend.svg)](https://pypi.python.org/pypi/xrandr_extend)
 ![python versions](https://img.shields.io/pypi/pyversions/xrandr-extend.svg)
-[![image](https://img.shields.io/travis/ashwinvis/xrandr_extend.svg)](https://travis-ci.org/ashwinvis/xrandr_extend)
+[![image](https://img.shields.io/travis/ashwinvis/xrandr-extend.svg)](https://travis-ci.org/ashwinvis/xrandr-extend)
 [![Documentation Status](https://readthedocs.org/projects/xrandr-extend/badge/?version=latest)](https://xrandr-extend.readthedocs.io/en/latest/?badge=latest)
 
 Extend a HIDPI screen to a normal DPI external display. This command line tool

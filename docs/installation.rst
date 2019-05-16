@@ -12,7 +12,7 @@ To install xrandr-extend, run this command in your terminal:
 
 .. code-block:: console
 
-    $ pip install xrandr_extend
+    $ pip install xrandr-extend
 
 This is the preferred method to install xrandr-extend, as it will always install the most recent stable release.
 
@@ -32,13 +32,13 @@ You can either clone the public repository:
 
 .. code-block:: console
 
-    $ git clone git://github.com/ashwinvis/xrandr_extend
+    $ git clone git://github.com/ashwinvis/xrandr-extend
 
 Or download the `tarball`_:
 
 .. code-block:: console
 
-    $ curl  -OL https://github.com/ashwinvis/xrandr_extend/tarball/master
+    $ curl  -OL https://github.com/ashwinvis/xrandr-extend/tarball/master
 
 Once you have a copy of the source, you can install it with:
 
@@ -47,5 +47,5 @@ Once you have a copy of the source, you can install it with:
     $ python setup.py install
 
 
-.. _Github repo: https://github.com/ashwinvis/xrandr_extend
-.. _tarball: https://github.com/ashwinvis/xrandr_extend/tarball/master
+.. _Github repo: https://github.com/ashwinvis/xrandr-extend
+.. _tarball: https://github.com/ashwinvis/xrandr-extend/tarball/master

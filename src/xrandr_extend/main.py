@@ -71,7 +71,10 @@ parser.add_argument(
     "-n", "--pan", help="pan the position of ext. display", action="store_true"
 )
 parser.add_argument(
-    "-o", "--only", help="extend and use only ext. display", action="store_true"
+    "-o",
+    "--only",
+    help="extend and use only ext. display",
+    action="store_true",
 )
 parser.add_argument(
     "-s",
@@ -80,7 +83,10 @@ parser.add_argument(
     action="store_true",
 )
 parser.add_argument(
-    "-d", "--dry-run", help="Preview command without executing it", action="store_true"
+    "-d",
+    "--dry-run",
+    help="Preview command without executing it",
+    action="store_true",
 )
 
 
@@ -113,13 +119,17 @@ def run(args=None):
     commands = ["xrandr --auto"]
     commands.append("xrandr --listmonitors")
     if args.mirror:
-        commands.append("xrandr --output {} --scale {}x{}".format(monitor2, E, F))
+        commands.append(
+            "xrandr --output {} --scale {}x{}".format(monitor2, E, F)
+        )
     elif args.pan:
         commands.append(
             (
                 "xrandr --output {} --auto --output {} --auto --panning "
                 "{}x{}+{}+0 --scale {}x{} --right-of {}"
-            ).format(monitor1, monitor2, int(C * E), int(D * F), A, E, F, monitor1)
+            ).format(
+                monitor1, monitor2, int(C * E), int(D * F), A, E, F, monitor1
+            )
         )
     elif args.pos:
         commands.append(
@@ -127,7 +137,13 @@ def run(args=None):
                 "xrandr --output {} --auto --pos 0x{}  --output {} "
                 "--scale {}x{} --auto --pos 0x0 --fb {}x{}"
             ).format(
-                monitor1, int(D * F), monitor2, E, F, int(max(A, C * E)), int(B + D * F)
+                monitor1,
+                int(D * F),
+                monitor2,
+                E,
+                F,
+                int(max(A, C * E)),
+                int(B + D * F),
             )
         )
     elif args.only:
@@ -143,7 +159,9 @@ def run(args=None):
     if provider == "modesetting" and not (args.mirror or args.only):
         flicker_correction = 0.9999
         commands.append(
-            "xrandr --output {0} --scale {1}x{1}".format(monitor1, flicker_correction)
+            "xrandr --output {0} --scale {1}x{1}".format(
+                monitor1, flicker_correction
+            )
         )
 
     list(map(print, commands))

@@ -1,3 +1,4 @@
+import os
 import sys
 from pathlib import Path
 from configparser import ConfigParser
@@ -37,6 +38,10 @@ def display_names_from_providers(provider):
     # Try to read a section such as:
     # [provider:modesetting]
     config = read()
+    if os.getenv("CI") == "true":
+        # override provider while testing
+        provider = "modesetting"
+
     section = "provider:{}".format(provider)
     if config.has_section(section):
         display_names = config[section]
@@ -47,7 +52,9 @@ def display_names_from_providers(provider):
                 + provider.strip("\n")
                 + "\n"
                 + "Hint: perhaps you are using Wayland and not an X server? "
-                + "If not simply add a section [{}] in {}".format(section, CFG_FILE)
+                + "If not simply add a section [{}] in {}".format(
+                    section, CFG_FILE
+                )
             )
         )
         sys.exit(1)
