@@ -38,7 +38,7 @@ def display_names_from_providers(provider):
     # Try to read a section such as:
     # [provider:modesetting]
     config = read()
-    if os.getenv("CI") == "true":
+    if os.getenv("CI"):
         # override provider while testing
         provider = "modesetting"
 

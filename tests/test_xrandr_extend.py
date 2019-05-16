@@ -13,7 +13,7 @@ import os
 from xrandr_extend import main, config
 
 
-if os.getenv("CI") == "true":
+if os.getenv("CI"):
     to_test = ["-h"]
 else:
     to_test = [
