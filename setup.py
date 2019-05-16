@@ -18,7 +18,7 @@ try:
 except LookupError:
     # This means the source code was not from git / PyPI
     setup(
-        version='version='0.1.0'',
+        version='0.1.0',
         **setup_kwargs
     )
 
