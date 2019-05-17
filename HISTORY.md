@@ -1,6 +1,11 @@
 # History
 
-0.0.4 (2019-05-16)
+0.1.1 (2019-05-16)
+------------------
+
+* Correct command `xrandr_extend` -> `xrandr-extend`
+
+0.1.0 (2019-05-16)
 ------------------
 
 * Flicker correction
