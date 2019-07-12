@@ -5,7 +5,6 @@ xrandr-extend
 [![image](https://img.shields.io/pypi/v/xrandr_extend.svg)](https://pypi.python.org/pypi/xrandr_extend)
 ![python versions](https://img.shields.io/pypi/pyversions/xrandr-extend.svg)
 [![image](https://img.shields.io/travis/ashwinvis/xrandr-extend.svg)](https://travis-ci.org/ashwinvis/xrandr-extend)
-[![Documentation Status](https://readthedocs.org/projects/xrandr-extend/badge/?version=latest)](https://xrandr-extend.readthedocs.io/en/latest/?badge=latest)
 
 Extend a HIDPI screen to a normal DPI external display. This command line tool
 implements various solutions described in the [HIDPI Arch Linux wiki
@@ -13,7 +12,7 @@ page](https://wiki.archlinux.org/index.php/HiDPI#Multiple_displays).
 
 * Free software: GNU General Public License v3
 
-* Documentation: https://xrandr-extend.readthedocs.io.
+[![asciicast](https://asciinema.org/a/mauTEQ1eHLajl2TiF0ZEH5k3X.svg)](https://asciinema.org/a/mauTEQ1eHLajl2TiF0ZEH5k3X)
 
 ## Installation
 
@@ -53,7 +52,7 @@ vga = (1920, 1200)
 The first few sections have the name in the format `[provider:display_driver]`.
 Run `xrandr --listproviders` to find what your system has. The values in this
 section should be given as `alias = monitor_name`, as in the output of
-`xrandr --listmonitors` command. You may even remove existing sections and 
+`xrandr --listmonitors` command. You may even remove existing sections and
 add more sections for your *display driver*.
 
 Each line in the `[resolutions]` section signifies a *resolution profile* in
