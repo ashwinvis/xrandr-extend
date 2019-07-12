@@ -31,7 +31,7 @@ with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
 display_res_defaults = config.read()["resolutions"]
-
+display_scale_defautls = config.read()["scaling"]
 
 # Parse command-line arguments
 parser = argparse.ArgumentParser(
@@ -88,7 +88,18 @@ parser.add_argument(
     help="Preview command without executing it",
     action="store_true",
 )
-
+parser.add_argument(
+    "--auto-scale",
+    help="Scale external display automatically to match primary dpi",
+    action="store_true"
+)
+parser.add_argument(
+    "--ext-scale",
+    help="Sets the scale factor of the ext. display",
+    nargs=2,
+    type=float,
+    default=None,
+)
 
 def run(args=None):
     args = parser.parse_args(args)
@@ -109,11 +120,20 @@ def run(args=None):
 
     C = args.ext_res[0]
     D = args.ext_res[1]
-
+    
     # Scaling factor
-    E = round(A / C, 2)
-    F = round(B / D, 2)
-    E = F = max(E, F)
+    if args.ext_scale is None:
+        ext_scale = display_scale_defautls[args.profile]
+        args.ext_scale = literal_eval(ext_scale)
+    
+    # Scale automatically
+    if args.auto_scale:
+        tmp_e = round(A / C, 2)
+        tmp_f = round(B / D, 2)
+        tmp_max = max(tmp_e, tmp_f)
+        args.ext_scale = (tmp_max, tmp_max)
+
+    E = F = args.ext_scale[0]
 
     # Prepare commands
     commands = ["xrandr --auto"]
