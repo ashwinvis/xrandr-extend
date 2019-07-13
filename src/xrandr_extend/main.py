@@ -29,9 +29,12 @@ with this program. If not, see <http://www.gnu.org/licenses/>.
     datetime.now().year
 )
 
+cfg = config.read()
 
-display_res_defaults = config.read()["resolutions"]
-
+display_res_defaults = cfg["resolutions"]
+display_scale_defaults = (
+    cfg["scaling"] if cfg.has_section("scaling") else None
+)
 
 # Parse command-line arguments
 parser = argparse.ArgumentParser(
@@ -49,7 +52,7 @@ parser.add_argument(
 parser.add_argument(
     "-p",
     "--pri-res",
-    help="Modify preset resolution of primary display (default {})".format(
+    help="Modify preset resolution of primary display (default: {})".format(
         display_res_defaults["primary"]
     ),
     nargs=2,
@@ -59,27 +62,41 @@ parser.add_argument(
 parser.add_argument(
     "-e",
     "--ext-res",
-    help="Modify preset resolution of ext. display (default based on profile)",
+    help=(
+        "Modify preset resolution of external display (default based on "
+        "profile)"
+    ),
     nargs=2,
     type=int,
     default=None,
 )
 parser.add_argument(
-    "-m", "--mirror", help="Mirror the ext. display", action="store_true"
+    "-x",
+    "--ext-scale",
+    help=(
+        "Sets the scale factor of external display (DPI of primary display / "
+        "DPI of external display), overriding scale factor estimation from "
+        "resolutions"
+    ),
+    type=float,
+    default=None,
 )
 parser.add_argument(
-    "-n", "--pan", help="pan the position of ext. display", action="store_true"
+    "-m", "--mirror", help="Mirror the external display", action="store_true"
+)
+parser.add_argument(
+    "-n", "--pan", help="Pan the position of external display", action="store_true"
 )
 parser.add_argument(
     "-o",
     "--only",
-    help="extend and use only ext. display",
+    help="Extend and use only external display",
     action="store_true",
 )
 parser.add_argument(
     "-s",
     "--pos",
-    help="set the position of ext. display explicitly",
+    help="Set the position of external display explicitly",
     action="store_true",
 )
 parser.add_argument(
@@ -111,9 +128,17 @@ def run(args=None):
     D = args.ext_res[1]
 
     # Scaling factor
-    E = round(A / C, 2)
-    F = round(B / D, 2)
-    E = F = max(E, F)
+    if args.ext_scale is None:
+        if display_scale_defaults is None:
+            tmp_e = round(A / C, 2)
+            tmp_f = round(B / D, 2)
+            tmp_max = max(tmp_e, tmp_f)
+            args.ext_scale = tmp_max
+        else:
+            ext_scale = display_scale_defaults[args.profile]
+            args.ext_scale = ext_scale
+
+    E = F = args.ext_scale
 
     # Prepare commands
     commands = ["xrandr --auto"]
