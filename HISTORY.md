@@ -1,5 +1,10 @@
 # History
 
+0.2.0 (2019-07-??)
+------------------
+
+* New option `--ext-scale` for the scaling factor
+
 0.1.1 (2019-05-16)
 ------------------
 
