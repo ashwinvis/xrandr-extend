@@ -52,7 +52,7 @@ parser.add_argument(
 parser.add_argument(
     "-p",
     "--pri-res",
-    help="Modify preset resolution of primary display (default {})".format(
+    help="Modify preset resolution of primary display (default: {})".format(
         display_res_defaults["primary"]
     ),
     nargs=2,
@@ -62,27 +62,41 @@ parser.add_argument(
 parser.add_argument(
     "-e",
     "--ext-res",
-    help="Modify preset resolution of ext. display (default based on profile)",
+    help=(
+        "Modify preset resolution of external display (default based on "
+        "profile)"
+    ),
     nargs=2,
     type=int,
     default=None,
 )
 parser.add_argument(
-    "-m", "--mirror", help="Mirror the ext. display", action="store_true"
+    "-x",
+    "--ext-scale",
+    help=(
+        "Sets the scale factor of external display (DPI of primary display / "
+        "DPI of external display), overriding scale factor estimation from "
+        "resolutions"
+    ),
+    type=float,
+    default=None,
 )
 parser.add_argument(
-    "-n", "--pan", help="pan the position of ext. display", action="store_true"
+    "-m", "--mirror", help="Mirror the external display", action="store_true"
+)
+parser.add_argument(
+    "-n", "--pan", help="Pan the position of external display", action="store_true"
 )
 parser.add_argument(
     "-o",
     "--only",
-    help="extend and use only ext. display",
+    help="Extend and use only external display",
     action="store_true",
 )
 parser.add_argument(
     "-s",
     "--pos",
-    help="set the position of ext. display explicitly",
+    help="Set the position of external display explicitly",
     action="store_true",
 )
 parser.add_argument(
@@ -90,12 +104,6 @@ parser.add_argument(
     "--dry-run",
     help="Preview command without executing it",
     action="store_true",
-)
-parser.add_argument(
-    "--ext-scale",
-    help="Sets the scale factor of the ext. display",
-    type=float,
-    default=None,
 )
 
 
