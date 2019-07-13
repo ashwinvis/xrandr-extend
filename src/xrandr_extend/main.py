@@ -117,7 +117,7 @@ def run(args=None):
     
     # Scaling factor
     if args.ext_scale is None:
-        if display_scale_defaults is not None:
+        if display_scale_defaults is None:
             tmp_e = round(A / C, 2)
             tmp_f = round(B / D, 2)
             tmp_max = max(tmp_e, tmp_f)
