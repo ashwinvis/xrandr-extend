@@ -2,22 +2,25 @@
 """
 Examples
 --------
-# Default option requires only the scaling factors and display name
+# Built-in options or user-configured options are used when only the display
+# profile is mentioned
+
 $ xrandr-extend --dry-run vga
 $ xrandr-extend vga
 $ xrandr-extend hdmi
 
 # Other options to extend the display
+
 $ xrandr-extend --pan hdmi
 $ xrandr-extend --only hdmi
 $ xrandr-extend -e 1024 768 -n vga  # Pan with custom external resolution
-
+$ xrandr-extend -x 2.0 hdmi         # Custom scale factor
 """
-from datetime import datetime
 import argparse
 from ast import literal_eval
-from . import cmd, config
+from datetime import datetime
 
+from . import cmd, config
 
 COPYING = """
 xrandr-extend Copyright (C) 2018-{} Ashwin Vishnu Mohanan
@@ -32,9 +35,7 @@ with this program. If not, see <http://www.gnu.org/licenses/>.
 cfg = config.read()
 
 display_res_defaults = cfg["resolutions"]
-display_scale_defaults = (
-    cfg["scaling"] if cfg.has_section("scaling") else None
-)
+display_scale_defaults = cfg["scaling"] if cfg.has_section("scaling") else None
 
 # Parse command-line arguments
 parser = argparse.ArgumentParser(
@@ -85,7 +86,10 @@ parser.add_argument(
     "-m", "--mirror", help="Mirror the external display", action="store_true"
 )
 parser.add_argument(
-    "-n", "--pan", help="Pan the position of external display", action="store_true"
+    "-n",
+    "--pan",
+    help="Pan the position of external display",
+    action="store_true",
 )
 parser.add_argument(
     "-o",
@@ -121,7 +125,7 @@ def run(args=None):
 
     # External non-HIDPI monitor resolution
     if args.ext_res is None:
-        ext_res = display_res_defaults[args.profile]
+        ext_res = display_res_defaults.get(args.profile)
         args.ext_res = literal_eval(ext_res)
 
     C = args.ext_res[0]
@@ -129,24 +133,24 @@ def run(args=None):
 
     # Scaling factor
     if args.ext_scale is None:
+        tmp_e = round(A / C, 2)
+        tmp_f = round(B / D, 2)
+        tmp_max = max(tmp_e, tmp_f)
         if display_scale_defaults is None:
-            tmp_e = round(A / C, 2)
-            tmp_f = round(B / D, 2)
-            tmp_max = max(tmp_e, tmp_f)
             args.ext_scale = tmp_max
         else:
-            ext_scale = display_scale_defaults[args.profile]
-            args.ext_scale = ext_scale
+            args.ext_scale = display_scale_defaults.getfloat(
+                args.profile, fallback=tmp_max
+            )
 
+    assert args.ext_scale is not None
     E = F = args.ext_scale
 
     # Prepare commands
     commands = ["xrandr --auto"]
     commands.append("xrandr --listmonitors")
     if args.mirror:
-        commands.append(
-            "xrandr --output {} --scale {}x{}".format(monitor2, E, F)
-        )
+        commands.append("xrandr --output {} --scale {}x{}".format(monitor2, E, F))
     elif args.pan:
         commands.append(
             (

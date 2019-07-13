@@ -23,6 +23,7 @@ else:
         "-d --pan vga",
         "-d --mirror vga",
         "-d --only vga",
+        "-d --ext-scale 2.0 hdmi",
     ]
 
 
