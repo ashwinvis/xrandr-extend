@@ -31,7 +31,9 @@ with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
 display_res_defaults = config.read()["resolutions"]
-display_scale_defaults = config.read()["scaling"] if config.read().has_section("scaling") else None
+display_scale_defaults = (
+    config.read()["scaling"] if config.read().has_section("scaling") else None
+)
 
 # Parse command-line arguments
 parser = argparse.ArgumentParser(
@@ -95,6 +97,7 @@ parser.add_argument(
     default=None,
 )
 
+
 def run(args=None):
     args = parser.parse_args(args)
     provider = cmd.detect_provider()
@@ -114,7 +117,7 @@ def run(args=None):
 
     C = args.ext_res[0]
     D = args.ext_res[1]
-    
+
     # Scaling factor
     if args.ext_scale is None:
         if display_scale_defaults is None:
