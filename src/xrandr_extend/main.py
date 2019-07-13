@@ -29,10 +29,11 @@ with this program. If not, see <http://www.gnu.org/licenses/>.
     datetime.now().year
 )
 
+cfg = config.read()
 
-display_res_defaults = config.read()["resolutions"]
+display_res_defaults = cfg["resolutions"]
 display_scale_defaults = (
-    config.read()["scaling"] if config.read().has_section("scaling") else None
+    cfg["scaling"] if cfg.has_section("scaling") else None
 )
 
 # Parse command-line arguments
