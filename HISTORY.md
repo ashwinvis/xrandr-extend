@@ -1,9 +1,9 @@
 # History
 
-0.2.0 (2019-07-??)
+0.2.0 (2019-07-15)
 ------------------
 
-* New option `--ext-scale` for the scaling factor
+* New optional option `-x` or `--ext-scale` for the scaling factor (PR #4, #5)
 
 0.1.1 (2019-05-16)
 ------------------
