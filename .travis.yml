@@ -1,19 +1,16 @@
-# dist: xenial
-# services: xvfb
 language: python
 python:
 - 3.5
 - 3.6
 install: pip install -U tox-travis
-# script: xvfb-run tox
 script: tox
 before_deploy: make clean
 deploy:
   provider: pypi
   distributions: sdist bdist_wheel
-  user: avmo
+  user: avmo-ci
   password:
-    secure: jWfvYHnppegwsadBBb3hPGqwG6QGG1QfMF4JyW1Xc2Ha7c2L4X22dcc/kSlnMu2NhHqfJ1paAPadpJ1L7vFru4uh+eujSoCE9FLuh7d9s81XDYp4zV2k21hYGQLUmsEK3RaOcdCaLlW7QwbkQNxoHhVqJFtar1PVGQnvu96gUZFAiz9WhuyYOQIr46MT4KiugaWz0zC46BC0v4RR19Cz52duwhQwspSkVaBo5hEyryxqZVpgJhapvujF9s8v7imPCrM93sG7OJVDV/YwcYo8RF0sbVRbLu7JYzaCZdRneMaVCI+8TH10PGcVRxYIdNVqmnOSE5knkPLl59I9oEhkDeTVc9j7/EQ54PhC/Y2w3QpKbmOuvng59DQGH87zBjfmuSsdjlIxE8uu5WRbWNvd/AAdPYZ8P2LIIDy1A2qWq187PFxnthT8kh1ngm8zmHInEDuz3MoZRRtPmRIOceLDBqsHTqqNVKuhHP6pouW2sZjp6F1NqcL4Ihgl/OaZpVU8D+U+iMnSAzTHvY8fOCwwbR5L+pNyzuuOP0YtfgrvoQDq8XxYo54YGm+Jo1r+G0vKJLXO7dC7joXIeSVXqNEsou987+otmAb7iJkyvc1E4Ih3aT0TgItor2xHdBK6XK9YuW/iyEPwJn1XwWOfWJoS62ymDX4Oqf7OwLDXvc+AZ64=
+    secure: WqM1SQ4aZseG6i4wsCApaTUBeB4/ZmnVgujOyKga6NGI8YJr+7tgqAPq1K234Ejk4lGUSK21R+bJOOl7WwHlPZZQFIpD5EfTx2L8U3OJSNJ64UfgV2uX1m0V1Z1YdTwE8ofVkKOsqxCBENGCgV3AQaoJEJbjnAaQ+e9flXnbFZCa5Jyr1IQWRuqNBErD7fFJMrWkjkZ3x0FMVl8un6pSAvEiMrKa+Jdi2ZQgPdx+wSeV8VDrw9Tlu5JQ53adm4/jBIa/7rmHXJGVttMI0YdwPeUdvX4UgR27x+f0V5A7u6yJKfzV23iVR0hqrfC1fhKHiYKhV1d622i+Lu38Icn14Iu9vdEIyx2uNDIG44REb/yt346b9m55aZoI496GhC1u1UT/U7mDvwcmc+GWcpB80HNiQkp/T3j2xnFGK3qi5bavc/0ZwddKGbCHjzHoBUfpZWV+C2I6nluvXvMqbU8oVNTmbMmeQfkfo0CzRw6RSMG6SjxG8Zs/AfDzbF4ZFBLh+yCukDoncJHfalhg6KK3AN+R8KmiLMUjGRG7XC9mXL648YBtWkmysy40H7eob1akTriJCmucB+oR9IC8uZfkCv+GUydBc4m0F6NqfzcbxGCYAUkV9dVVk3RHerUqzklZnFSkFzzX7Dml37s+Pgql8NHSTN/slnPdiHNpo4oZzBk=
   on:
     tags: true
     repo: ashwinvis/xrandr-extend
