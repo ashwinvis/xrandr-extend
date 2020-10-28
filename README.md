@@ -54,7 +54,7 @@ vga = 1920, 1200
 # vga = 2.0
 
 # [rotation]
-# primary = normal
+# primary = left
 # hdmi = left
 # vga = right
 ```
@@ -72,6 +72,9 @@ or remove the remaining values `hdmi` and `vga`.
 
 The `[scaling]` section contains the scale factors, which if uncommented,
 overrides the scale factor computed from the resolutions.
+
+The `[rotation]` section specifies the directions to rotate the output contents
+similarly to `xrandr --rotate`.
 
 ## Quick reference
 
