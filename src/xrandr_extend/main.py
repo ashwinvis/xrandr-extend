@@ -15,6 +15,7 @@ $ xrandr-extend --pan hdmi
 $ xrandr-extend --only hdmi
 $ xrandr-extend -e 1024 768 -n vga  # Pan with custom external resolution
 $ xrandr-extend -x 2.0 hdmi         # Custom scale factor
+$ xrandr-extend -r left hdmi        # Custom direction to rotate
 """
 import argparse
 from ast import literal_eval
