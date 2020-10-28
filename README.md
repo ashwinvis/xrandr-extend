@@ -52,6 +52,11 @@ vga = 1920, 1200
 # primary = 1.0
 # hdmi = 2.0
 # vga = 2.0
+
+# [rotation]
+# primary = normal
+# hdmi = left
+# vga = right
 ```
 
 The first few sections have the name in the format `[provider:display_driver]`.
