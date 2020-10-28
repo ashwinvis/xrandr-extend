@@ -36,6 +36,7 @@ cfg = config.read()
 
 display_res_defaults = cfg["resolutions"]
 display_scale_defaults = cfg["scaling"] if cfg.has_section("scaling") else None
+display_rotate_defaults = cfg["rotation"] if cfg.has_section("rotation") else None
 
 # Parse command-line arguments
 parser = argparse.ArgumentParser(
