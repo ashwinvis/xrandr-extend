@@ -90,8 +90,9 @@ parser.add_argument(
         "This causes the output contents to be rotated in the specified "
         "direction. 'right' specifies a clockwise rotation"
     ),
-    type=float,
-    default=None,
+    type=str,
+    default="normal",
+    choices=["normal", "left", "right", "inverted"],
 )
 parser.add_argument(
     "-m", "--mirror", help="Mirror the external display", action="store_true"
