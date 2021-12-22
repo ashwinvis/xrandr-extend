@@ -92,7 +92,8 @@ parser.add_argument(
         "Rotation can be one of the above strings. "
         "This causes the output contents of external display to be "
         "rotated in the specified direction. For example 'right' specifies "
-        "a clockwise rotation."
+        "a clockwise rotation, 'normal' orients it horizontally and 'same'"
+        "preserves the current orientation."
     ),
     type=str,
     default="same",
