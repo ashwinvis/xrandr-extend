@@ -1,9 +1,8 @@
 """Any function which executes a subprocess goes here."""
 
 import subprocess
-import sys
 from shlex import split
-from .config import read, CFG_FILE
+from .config import read
 
 
 def call(cmd):

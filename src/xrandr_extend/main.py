@@ -89,8 +89,9 @@ parser.add_argument(
     "--rotate",
     help=(
         "Rotation can be one of 'normal', 'left', 'right' or 'inverted'. "
-        "This causes the output contents to be rotated in the specified "
-        "direction. 'right' specifies a clockwise rotation"
+        "This causes the output contents of external display to be "
+        "rotated in the specified direction. 'right' specifies a clockwise "
+        "rotation."
     ),
     type=str,
     default="normal",
@@ -160,6 +161,9 @@ def run(args=None):
     assert args.ext_scale is not None
     E = F = args.ext_scale
 
+    if args.rotate is None and display_rotate_defaults:
+        args.rotate = display_rotate_defaults.get(args.profile, fallback="normal")
+
     # Prepare commands
     commands = ["xrandr --auto"]
     commands.append("xrandr --listmonitors")
@@ -198,6 +202,8 @@ def run(args=None):
                 "--right-of {}"
             ).format(monitor1, monitor2, E, F, monitor1)
         )
+
+    commands.append(f"xrandr --output {monitor2} --rotate {args.rotate}")
 
     if provider == "modesetting" and not (args.mirror or args.only):
         flicker_correction = 0.9999
