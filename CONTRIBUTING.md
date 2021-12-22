@@ -53,32 +53,33 @@ Ready to contribute? Here's how to set up `xrandr-extend` for local development.
 
 1. Fork the `xrandr-extend` repo on GitHub.
 2. Clone your fork locally:
-    
+
         $ git clone git@github.com:your_name_here/xrandr-extend.git
 
-3. Install your local copy into a virtualenv. Assuming you have virtualenvwrapper installed, this is how you set up your fork for local development:
-    
-        $ mkvirtualenv xrandr-extend
+3. Create a virtual environment for local development:
+
         $ cd xrandr-extend/
-        $ python setup.py develop
+        $ python -m venv venv
+        $ source venv/bin/activate
+        $ pip install -e ".[dev]"
 
 4. Create a branch for local development:
-    
+
         $ git checkout -b name-of-your-bugfix-or-feature
-    
+
     Now you can make your changes locally.
 
 5. When you're done making changes, check that your changes pass flake8 and the
    tests, including testing other Python versions with tox:
-    
+
         $ flake8 src/xrandr_extend tests
-        $ python setup.py test or py.test
+        $ pytest
         $ tox
-    
+
     To get flake8 and tox, just pip install them into your virtualenv.
 
 6. Commit your changes and push your branch to GitHub:
-    
+
         $ git add .
         $ git commit -m "Your detailed description of your changes."
         $ git push origin name-of-your-bugfix-or-feature
@@ -93,23 +94,23 @@ Before you submit a pull request, check that it meets these guidelines:
 2. If the pull request adds functionality, the docs should be updated. Put
    your new functionality into a function with a docstring, and add the
    feature to the list in README.rst.
-3. The pull request should work for Python 2.7, 3.4, 3.5 and 3.6, and for PyPy. Check
-   https://travis-ci.org/ashwinvis/xrandr-extend/pull_requests
-   and make sure that the tests pass for all supported Python versions.
+3. The pull request should work for Python 3.6 and above, and for PyPy.
+   ~~Check https://travis-ci.org/ashwinvis/xrandr-extend/pull_requests
+   and make sure that the tests pass for all supported Python versions.~~
 
 ## Tips
 
 To run a subset of tests:
 
-    $ py.test tests.test_xrandr_extend
-    
+    $ pytest tests.test_xrandr_extend
+
 
 ## Deploying
 A reminder for the maintainers on how to deploy.
 Make sure all your changes are committed (including an entry in HISTORY.md).
 Then run:
 
-    $ bumpversion patch # possible: major / minor / patch
+    $ bump2version patch # possible: major / minor / patch
     $ git push
     $ git push --tags
 
