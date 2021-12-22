@@ -87,15 +87,15 @@ parser.add_argument(
 parser.add_argument(
     "-r",
     "--rotate",
+    choices=("normal", "left", "right", "inverted", "same"),
     help=(
-        "Rotation can be one of 'normal', 'left', 'right' or 'inverted'. "
+        "Rotation can be one of the above strings. "
         "This causes the output contents of external display to be "
-        "rotated in the specified direction. 'right' specifies a clockwise "
-        "rotation."
+        "rotated in the specified direction. For example 'right' specifies "
+        "a clockwise rotation."
     ),
     type=str,
-    default=None,
-    choices=["normal", "left", "right", "inverted"],
+    default="same",
 )
 parser.add_argument(
     "-m", "--mirror", help="Mirror the external display", action="store_true"
@@ -203,7 +203,8 @@ def run(args=None):
             ).format(monitor1, monitor2, E, F, monitor1)
         )
 
-    commands.append(f"xrandr --output {monitor2} --rotate {args.rotate}")
+    if args.rotate != "same":
+        commands.append(f"xrandr --output {monitor2} --rotate {args.rotate}")
 
     if provider == "modesetting" and not (args.mirror or args.only):
         flicker_correction = 0.9999
