@@ -1,5 +1,10 @@
 # History
 
+0.3.0 (2021-12-22)
+------------------
+
+* New option `-r` or `--rotate` to orient the external display
+
 0.2.0 (2019-07-15)
 ------------------
 
