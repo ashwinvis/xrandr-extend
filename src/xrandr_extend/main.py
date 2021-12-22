@@ -94,7 +94,7 @@ parser.add_argument(
         "rotation."
     ),
     type=str,
-    default="normal",
+    default=None,
     choices=["normal", "left", "right", "inverted"],
 )
 parser.add_argument(
