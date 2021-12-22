@@ -196,7 +196,9 @@ def run(args=None):
     if provider == "modesetting" and not (args.mirror or args.only):
         flicker_correction = 0.9999
         commands.append(
-            "xrandr --output {0} --scale {1}x{1}".format(monitor1, flicker_correction)
+            "xrandr --output {0} --scale {1}x{1}".format(
+                monitor1, flicker_correction
+            )
         )
 
     list(map(print, commands))

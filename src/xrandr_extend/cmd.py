@@ -2,7 +2,6 @@
 
 import subprocess
 from shlex import split
-from .config import read
 
 
 def call(cmd):
@@ -29,5 +28,5 @@ def detect_provider():
         provider = None
     else:
         # idx_name + 5 to remove "name:"
-        provider = output.lower().rstrip("\n")[idx_name+5:]
+        provider = output.lower().rstrip("\n")[idx_name + 5 :]
     return provider
