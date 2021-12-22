@@ -43,12 +43,11 @@ def display_names_from_providers(provider):
         # override provider while testing
         provider = "modesetting"
 
-    section = "provider:{}".format(provider)
+    section = f"provider:{provider}"
     if config.has_section(section):
         display_names = config[section]
     else:
         print(
-            (
                 "Unknown X server provider. Output of `xrandr --listproviders` was: "
                 + provider.strip("\n")
                 + "\n"
@@ -56,7 +55,6 @@ def display_names_from_providers(provider):
                 + "If not simply add a section [{}] in {}".format(
                     section, CFG_FILE
                 )
-            )
         )
         sys.exit(1)
 
@@ -64,6 +62,6 @@ def display_names_from_providers(provider):
 
 
 if __name__ == "__main__":
-    print("Writing default configuration to {} ...".format(CFG_FILE))
+    print(f"Writing default configuration to {CFG_FILE} ...")
     write_defaults()
     print("Done!")

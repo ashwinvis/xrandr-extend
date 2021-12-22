@@ -169,39 +169,25 @@ def run(args=None):
     commands = ["xrandr --auto"]
     commands.append("xrandr --listmonitors")
     if args.mirror:
-        commands.append("xrandr --output {} --scale {}x{}".format(monitor2, E, F))
+        commands.append(f"xrandr --output {monitor2} --scale {E}x{F}")
     elif args.pan:
         commands.append(
-            (
-                "xrandr --output {} --auto --output {} --auto --panning "
-                "{}x{}+{}+0 --scale {}x{} --right-of {}"
-            ).format(
-                monitor1, monitor2, int(C * E), int(D * F), A, E, F, monitor1
-            )
+            f"xrandr --output {monitor1} --auto --output {monitor2} --auto "
+            f"--panning {int(C * E)}x{int(D * F)}+{A}+0 --scale {E}x{F} "
+            f"--right-of {monitor1}"
         )
     elif args.pos:
         commands.append(
-            (
-                "xrandr --output {} --auto --pos 0x{}  --output {} "
-                "--scale {}x{} --auto --pos 0x0 --fb {}x{}"
-            ).format(
-                monitor1,
-                int(D * F),
-                monitor2,
-                E,
-                F,
-                int(max(A, C * E)),
-                int(B + D * F),
-            )
+            f"xrandr --output {monitor1} --auto --pos 0x{int(D * F)}  "
+            f"--output {monitor2} --scale {E}x{F} --auto --pos 0x0 "
+            f"--fb {int(max(A, C * E))}x{int(B + D * F)}"
         )
     elif args.only:
-        commands.append("xrandr --output {} --off".format(monitor1))
+        commands.append(f"xrandr --output {monitor1} --off")
     else:
         commands.append(
-            (
-                "xrandr --output {} --auto --output {} --auto --scale {}x{} "
-                "--right-of {}"
-            ).format(monitor1, monitor2, E, F, monitor1)
+            f"xrandr --output {monitor1} --auto --output {monitor2} --auto "
+            f"--scale {E}x{F} --right-of {monitor1}"
         )
 
     if args.rotate != "same":
@@ -210,9 +196,7 @@ def run(args=None):
     if provider == "modesetting" and not (args.mirror or args.only):
         flicker_correction = 0.9999
         commands.append(
-            "xrandr --output {0} --scale {1}x{1}".format(
-                monitor1, flicker_correction
-            )
+            "xrandr --output {0} --scale {1}x{1}".format(monitor1, flicker_correction)
         )
 
     list(map(print, commands))
