@@ -60,7 +60,7 @@ lint: ## check style with flake8
 	flake8 xrandr_extend tests
 
 black: ## run black to format your code
-	black --line-length 79 src
+	black --line-length 82 src
 
 test: ## run tests quickly with the default Python
 	py.test
@@ -92,8 +92,7 @@ dist-check: dist ## package and verify it
 	twine check dist/*
 
 dist: clean ## builds source and wheel package
-	python setup.py sdist
-	python setup.py bdist_wheel
+	python -m build
 	ls -l dist
 
 install: clean ## install the package to the active Python's site-packages
