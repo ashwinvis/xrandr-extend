@@ -24,6 +24,8 @@ else:
         "-d --mirror vga",
         "-d --only vga",
         "-d --ext-scale 2.0 hdmi",
+        "-d -r left hdmi",
+        "-d --rotate normal hdmi",
     ]
 
 
