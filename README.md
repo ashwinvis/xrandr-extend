@@ -54,7 +54,6 @@ vga = 1920, 1200
 # vga = 2.0
 
 # [rotation]
-# primary = left
 # hdmi = left
 # vga = right
 ```
@@ -92,15 +91,19 @@ positional arguments:
 optional arguments:
   -h, --help            show this help message and exit
   -p PRI_RES PRI_RES, --pri-res PRI_RES PRI_RES
-                        Modify preset resolution of primary display (default:
-                        3200, 1800)
+                        Modify preset resolution of primary display (default: 1920, 1080)
   -e EXT_RES EXT_RES, --ext-res EXT_RES EXT_RES
-                        Modify preset resolution of external display (default
-                        based on profile)
+                        Modify preset resolution of external display (default based on
+                        profile)
   -x EXT_SCALE, --ext-scale EXT_SCALE
-                        Sets the scale factor of external display (DPI of
-                        primary display / DPI of external display), overriding
-                        scale factor estimation from resolutions
+                        Sets the scale factor of external display (DPI of primary display /
+                        DPI of external display), overriding scale factor estimation from
+                        resolutions
+  -r {normal,left,right,inverted,same}, --rotate {normal,left,right,inverted,same}
+                        Rotation can be one of the above strings. This causes the output
+                        contents of external display to be rotated in the specified direction.
+                        For example 'right' specifies a clockwise rotation, 'normal' orients
+                        it horizontally and 'same'preserves the current orientation.
   -m, --mirror          Mirror the external display
   -n, --pan             Pan the position of external display
   -o, --only            Extend and use only external display
@@ -122,6 +125,7 @@ $ xrandr-extend --pan hdmi
 $ xrandr-extend --only hdmi
 $ xrandr-extend -e 1024 768 -n vga  # Pan with custom external resolution
 $ xrandr-extend -x 2.0 hdmi         # Custom scale factor
+$ xrandr-extend -r left hdmi        # Custom direction to rotate
 ```
 
 # Credits
