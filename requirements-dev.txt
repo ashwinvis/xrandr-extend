@@ -12,7 +12,7 @@ charset-normalizer==2.0.9
 colorama==0.4.4
 commonmark==0.9.1
 coverage==6.2
-cryptography==36.0.1
+cryptography==39.0.1
 distlib==0.3.4
 docutils==0.17.1
 filelock==3.4.0
