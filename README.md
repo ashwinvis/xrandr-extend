@@ -26,10 +26,22 @@ pipx install xrandr-extend
 ```
 
 ## Configuration
+
+If the installation was made using ``pip``, run:
+
 ```sh
 python -m xrandr_extend.config
 ```
-This creates a file `~/.config/xrandr-extend.cfg` which looks like this:
+
+Alternatively, if you did use ```pipx```, run:
+
+```sh
+pipx run --spec xrandr-extend python -m xrandr_extend.config
+```
+
+instead.
+
+For both case, this creates the config file `~/.config/xrandr-extend.cfg` which looks like this:
 
 ```ini
 [provider:modesetting]
