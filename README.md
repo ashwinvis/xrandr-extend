@@ -4,6 +4,11 @@ xrandr-extend
 
 [![image](https://img.shields.io/pypi/v/xrandr_extend.svg)](https://pypi.python.org/pypi/xrandr_extend)
 ![python versions](https://img.shields.io/pypi/pyversions/xrandr-extend.svg)
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
+
+> [!note]
+> Nowadays (as of 2026), display servers using Wayland is common and so is its fractional scaling support.
+> This tool should continue to work as it is, but is only required for systems still using X11.
 
 Extend a HIDPI screen to a normal DPI external display. This command line tool
 implements various solutions described in the [HIDPI Arch Linux wiki
