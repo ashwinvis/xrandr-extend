@@ -62,7 +62,7 @@ tomli==2.0.0
 tox==3.24.4
 tqdm==4.62.3
 twine==3.7.1
-urllib3==1.26.7
+urllib3==1.26.18
 virtualenv==20.10.0
 watchdog==2.1.6
 webencodings==0.5.1
